@@ -70,13 +70,15 @@ void KeyboardReportParser::Parse(HID *hid, bool is_rpt_id, uint32_t len, uint8_t
 
 	//KBDINFO	*pki = (KBDINFO*)buf;
 
-	for (uint32_t i = 2; i < 8; ++i)
+	for (uint32_t i = 0; i < 8; ++i)
 	{
+		if (i == 1) continue;
 		bool down = false;
 		bool up	  = false;
 
-		for (uint8_t j=2; j<8; j++)
+		for (uint8_t j=0; j<8; j++)
 		{
+			if (j == 1) continue;
 			if (buf[i] == prevState.bInfo[j] && buf[i] != 1)
 				down = true;
 			if (buf[j] == prevState.bInfo[i] && prevState.bInfo[i] != 1)
